@@ -33,6 +33,9 @@ int main()
 	cout << "Informe a escala, 1 para: ";
 	cin >> escala;
 
+    cout << "Informa a escala de pixels: ";
+    cin >> norma;
+
 	cout << "Informe a quantidade de pontos que irá coletar: ";
 	cin >> qtd_pontos;
 	float X[qtd_pontos];
@@ -48,7 +51,8 @@ int main()
 
 	ofstream file;
 	file.open(csv);
-	file << "1," << escala << "\n";
+    file << "\"X\",\"YCIMA\",\"YBAIXO\"\n";
+	file << "0,1," << escala << "\n";
 
 	sf::Sprite sprite;
 	sprite.setTexture(tex_imagem);
@@ -77,36 +81,7 @@ int main()
         dot.setPosition(sf::Mouse::getPosition(window).x-5, sf::Mouse::getPosition(window).y-5);
         switch(state)
         {
-        	case 1: if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-        	{
-        		if(!isPressed)
-        		{
-        			A = dot.getPosition();
-        			isPressed = 1;
-        		}
-        	}
-        	else if(isPressed){ 
-        		state++;
-        		isPressed = 0;
-        	}
-        	break;
-
-        	case 2: if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-        	{
-        		if(!isPressed)
-        		{
-        			B = (dot.getPosition() - A);
-        			isPressed = 1;
-        		}
-        	}
-        	else if(isPressed) {
-        		state++;
-        		norma = (float)sqrt(B.x * B.x + B.y * B.y);
-        		isPressed = 0;
-        	}
-        	break;
-
-        	case 3: if(!isPressed) eixo_x.setPosition(0, dot.getPosition().y);
+        	case 1: if(!isPressed) eixo_x.setPosition(0, dot.getPosition().y);
         	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         	{
         		if(!isPressed)
@@ -121,7 +96,7 @@ int main()
         	}
         	break;
 
-        	case 4: if(!isPressed) dot.setPosition(sf::Mouse::getPosition(window).x-5, ofset_y);
+        	case 2: if(!isPressed) dot.setPosition(sf::Mouse::getPosition(window).x-5, ofset_y);
         	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         	{
         		if(!isPressed)
@@ -138,7 +113,7 @@ int main()
         	}
         	break;
 
-        	case 5: if(!isPressed) dot.setPosition(sf::Mouse::getPosition(window).x-5, ofset_y);
+        	case 3: if(!isPressed) dot.setPosition(sf::Mouse::getPosition(window).x-5, ofset_y);
         	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         	{
         		if(!isPressed)
@@ -156,7 +131,7 @@ int main()
         	}
         	break;
 
-        	case 6: if(!isPressed) dot.setPosition(point * dist_points + X[0], sf::Mouse::getPosition(window).y-5);
+        	case 4: if(!isPressed) dot.setPosition(point * dist_points + X[0], sf::Mouse::getPosition(window).y-5);
         	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         	{
         		if(!isPressed)
@@ -176,7 +151,7 @@ int main()
         	}
         	break;
 
-        	case 7: if(!isPressed) dot.setPosition(point * dist_points + X[0], sf::Mouse::getPosition(window).y-5);
+        	case 5: if(!isPressed) dot.setPosition(point * dist_points + X[0], sf::Mouse::getPosition(window).y-5);
         	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
         	{
         		if(!isPressed)
@@ -202,8 +177,7 @@ int main()
         window.clear();
         window.draw(sprite);
         window.draw(dot);
-        if(state >= 3)
-        	window.draw(eixo_x);
+        window.draw(eixo_x);
         window.display();
     }
 

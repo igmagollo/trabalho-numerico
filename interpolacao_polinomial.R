@@ -10,7 +10,6 @@ interpolacao_polinomial <- function(X, Y)
   n_linhas = length(X)
   A = matrix(c(0), n_linhas, n_linhas)
   B = matrix(Y, n_linhas, 1)
-  chute = matrix(c(0), n_linhas, 1)
   
   for (i in 1:n_linhas)
   {
@@ -20,7 +19,6 @@ interpolacao_polinomial <- function(X, Y)
     }
   }
   
-  # Resolução sistema linear por Gauss-Seidel
   M = Eliminacao_Gauss(A, B)
   polinomio = function(x){
     soma = 0
